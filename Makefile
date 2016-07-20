@@ -5,4 +5,4 @@ main: libs
 	clang-omp -c -fopenmp main.cpp
 
 libs:
-	g++ -c lib/graph_loader.cpp
+	clang-omp -c lib/graph_loader.cpp lib/find_components.cpp
