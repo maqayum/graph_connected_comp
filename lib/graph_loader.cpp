@@ -13,7 +13,6 @@ Graph GraphLoader::load() {
 
   int nodes_count;
   in >> nodes_count;
-  std::cout << nodes_count << '\n';
 
   std::string tmp;
   std::getline(in, tmp);
