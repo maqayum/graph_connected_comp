@@ -25,7 +25,6 @@ std::vector< std::vector<int> > find_components(Graph graph){
 
   #pragma omp parallel for
   for(int i=0; i<graph.nodes_count; ++i){
-    std::cout << i << '\n';
     used_nodes[i] = false;
   };
 
@@ -33,7 +32,7 @@ std::vector< std::vector<int> > find_components(Graph graph){
   #pragma omp parallel for
   for (int i=0; i<graph.nodes_count; ++i){
     if (!used_nodes[i]) {
-      std::cout << "Node=" << i << '\n';
+      //std::cout << "Node=" << i << '\n';
       std::vector<int> component;
       bypass_to_deep(graph, i, used_nodes, component);
       components.push_back(component);

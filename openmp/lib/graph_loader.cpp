@@ -9,7 +9,7 @@ GraphLoader::GraphLoader(std::string file_path){
 Graph GraphLoader::load() {
   std::ifstream in;
 
-  in.open(this->file_path);
+  in.open(this->file_path.c_str());
 
   int nodes_count;
   in >> nodes_count;
