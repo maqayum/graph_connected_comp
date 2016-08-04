@@ -27,4 +27,7 @@
 *.exe
 *.out
 *.app
+
+*.gr
+
 .DS_Store
