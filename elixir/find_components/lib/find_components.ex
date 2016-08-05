@@ -4,7 +4,7 @@ defmodule FindComponents do
   end
 
   def process(options) do 
-   options[:graph] |> Graph.load |> Graph.print
+   options[:graph] |> Graph.load |> Finder.find
   end 
 
   defp parse_args(argv) do
@@ -13,4 +13,5 @@ defmodule FindComponents do
     )
     options
   end
+ 
 end
