@@ -8,7 +8,11 @@
 #include "graph.h"
 
 void bypass_to_deep(Graph graph, int node, bool used_nodes[], std::vector<int> &component){
-  used_nodes[node] = true;
+  #pragma omp critical     
+  {
+    used_nodes[node] = true;
+  }  
+
   component.push_back(node);
 
   for(int i=0; i<graph.adjacency_list[node].size(); ++i){
@@ -23,7 +27,7 @@ std::vector< std::vector<int> > find_components(Graph graph){
   std::vector< std::vector<int> > components;
   bool used_nodes[graph.nodes_count];
 
-  #pragma omp parallel for
+  #pragma omp parallel for schedule(static)
   for(int i=0; i<graph.nodes_count; ++i){
     used_nodes[i] = false;
   };
@@ -35,7 +39,10 @@ std::vector< std::vector<int> > find_components(Graph graph){
       //std::cout << "Node=" << i << '\n';
       std::vector<int> component;
       bypass_to_deep(graph, i, used_nodes, component);
-      components.push_back(component);
+      #pragma omp critical 
+      {
+        components.push_back(component);
+      }       
     }
   }
   return components;
