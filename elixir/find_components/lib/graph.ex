@@ -7,7 +7,9 @@ defmodule Graph do
     {nodes_count, _} = Integer.parse IO.read(input_file, :line)
 
 
-    adjacency_list = 0..(nodes_count - 1) |> Enum.map(fn (x) -> read_line_from_file(input_file) end)
+    adjacency_list = 0..(nodes_count - 1) |> Enum.map(fn (x) -> 
+      read_line_from_file(input_file) 
+    end)
 
     %Graph{nodes_count: nodes_count, adjacency_list: adjacency_list}
   end
@@ -23,7 +25,10 @@ defmodule Graph do
   end
 
   defp read_line_from_file(input_file) do
-    IO.read(input_file, :line) |> String.split(" ") |> Enum.map(fn (x) -> parse_node(x) end) |> Enum.filter(fn (x) -> is_integer(x) end)
+    IO.read(input_file, :line) 
+    |> String.split(" ") 
+    |> Enum.map(fn (x) -> parse_node(x) end) 
+    |> Enum.filter(fn (x) -> is_integer(x) end)
   end
 
   defp parse_node(str) do

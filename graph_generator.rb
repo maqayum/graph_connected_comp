@@ -16,11 +16,12 @@ File.open(filename, 'w') do |file|
   file.puts nodes_count
 
   comp_count.times do |i|
+    start_node_number = i * comp_size    
     comp_size.times do |j|
-      node = (i + 1) * j
+      node = start_node_number + j
       str = ""
       comp_size.times do |k|
-        ad_node = (i + 1) * k
+        ad_node = start_node_number + k
         if ad_node != node
           str += "#{ad_node} "
         end
