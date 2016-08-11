@@ -1,16 +1,21 @@
 defmodule Finder do   
-
   def find(graph) do
-    used_nodes = :ets.new(:used_nodes , [:set, :protected])
+    find graph, 1
+  end 
 
-    0..(graph.nodes_count - 1) |> Enum.map( fn (n) ->
+  def find(graph, number_of_processes) do
+    used_nodes = :ets.new(:used_nodes , [:set, :public])
+
+    0..(graph.nodes_count - 1) |> ParallelStream.map( fn (n) ->
         n |> bypass_to_deep(graph, used_nodes)
-      end) |> Enum.reject(&(is_nil(&1))) |> IO.inspect |> normalize |> Enum.count
+      end, num_workers: 1) |> Enum.into([]) |> Enum.reject(&(is_nil(&1))) |> normalize |> Enum.count
   end
 
   defp normalize(components) do   
     removed_comp_ids = [-1]
     components |> Enum.reduce([], fn (x, acc) -> 
+      IO.inspect x.linked
+
       if x.linked |> Enum.count > 0 do
         if x.linked |> Enum.all?(fn (l) -> removed_comp_ids |> Enum.member?(l) end) do
           acc ++ [x]

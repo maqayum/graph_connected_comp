@@ -4,14 +4,13 @@ defmodule FindComponents do
   end
 
   def process(options) do 
-   options[:graph] |> Graph.load |> Finder.find |> IO.inspect
+   options[:graph] |> Graph.load |> Finder.find(Integer.parse options[:processes]) |> IO.inspect
   end 
 
   defp parse_args(argv) do
     {options, _, _} = OptionParser.parse(argv, 
-      switches: [graph: :string],
+      switches: [graph: :string, processes: :string]
     )
     options
-  end
- 
+  end 
 end
