@@ -8,7 +8,7 @@ defmodule Finder do
 
     0..(graph.nodes_count - 1) |> ParallelStream.map( fn (n) ->
         n |> bypass_to_deep(graph, used_nodes)
-      end, num_workers: 1) |> Enum.into([]) |> Enum.reject(&(is_nil(&1))) |> normalize |> Enum.count
+      end, num_workers: number_of_processes) |> Enum.into([]) |> Enum.reject(&(is_nil(&1))) |> normalize |> Enum.count
   end
 
   defp normalize(components) do   
