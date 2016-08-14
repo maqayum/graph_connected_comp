@@ -6,7 +6,7 @@
 struct Graph{
   int nodes_count;
 
-  std::vector< std::vector<int> > adjacency_list;
+  std::vector< std::vector<int> > adjacency_matrix;
 };
 
 #endif
