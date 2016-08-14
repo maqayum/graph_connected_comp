@@ -10,10 +10,14 @@
 
 std::vector< std::vector<int> > floyd(Graph graph){
   std::vector< std::vector<int> > matrix = graph.adjacency_matrix;
+  #pragma omp parallel for schedule(static)
   for(int k=0; k<graph.nodes_count; ++k){
     for(int i=0; i<graph.nodes_count; ++i){
       for(int j=0; j<graph.nodes_count; ++j){
-        matrix[i][j] = std::min(matrix[i][j], (matrix[i][k] + matrix[k][j]));
+        #pragma omp critical 
+        {
+          matrix[i][j] = std::min(matrix[i][j], (matrix[i][k] + matrix[k][j]));
+        }
       }
     }
   }
@@ -34,6 +38,7 @@ bool is_graph_connected(std::vector< std::vector<int> > matrix){
 
 void print_matrix(std::vector< std::vector<int> > matrix){
   std::cout << "Print matrix - " << matrix.size() << '\n';
+  #pragma omp parallel for schedule(static)
   for(int i=0; i<matrix.size(); ++i){
     for(int j=0; j<matrix.size(); ++j){
       std::cout << matrix[i][j] << ' ';
