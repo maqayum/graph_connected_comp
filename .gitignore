@@ -31,3 +31,4 @@
 *.gr
 
 .DS_Store
+.crystal

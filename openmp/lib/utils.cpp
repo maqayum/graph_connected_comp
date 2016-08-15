@@ -11,7 +11,7 @@
 std::vector< std::vector<int> > floyd(Graph graph){
   std::vector< std::vector<int> > matrix = graph.adjacency_matrix;
   for(int k=0; k<graph.nodes_count; ++k){
-    #pragma omp parallel for schedule(static)
+    #pragma omp parallel for schedule(runtime)
     for(int i=0; i<graph.nodes_count; ++i){
       for(int j=0; j<graph.nodes_count; ++j){
         #pragma omp critical 
