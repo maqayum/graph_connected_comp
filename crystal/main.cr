@@ -2,6 +2,7 @@ require "./graph.cr"
 require "option_parser"
 
 treads = 1
+file_name = ""
 
 OptionParser.parse! do |parser|
   parser.on("-g NAME", "--graph=FILE", "Path to graph data") { |path| file_name = path }
@@ -9,4 +10,4 @@ OptionParser.parse! do |parser|
   parser.on("-h", "--help", "Show this help") { puts parser }
 end
 
-p Graph::Loader.load(file_name).connected?
+p Graph::Loader.new("./../graph.gr").load.connected?
